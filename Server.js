@@ -1,7 +1,7 @@
 import express from "express"
 import { createServer } from "node:http";
 import { Server } from "socket.io";
-import { ACTIONS } from "./SocketActions";
+import { ACTIONS } from "./SocketActions.js";
 
 
 const app = express();
