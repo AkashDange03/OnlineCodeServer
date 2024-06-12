@@ -2,8 +2,7 @@ import express from "express"
 import { createServer } from "node:http";
 import { Server } from "socket.io";
 import { ACTIONS } from "./SocketActions";
-import path from "node:path";
-import { fileURLToPath } from 'url';
+
 
 const app = express();
 const server = createServer(app);
@@ -11,16 +10,6 @@ const io = new Server(server,{ cors: {
     origin: "*",  // You can restrict this to your frontend domain
     methods: ["GET", "POST"]
 }});
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-
-app.use(express.static(path.join(__dirname, './dist')));
-// Fallback to index.html for single-page applications
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, './dist/index.html'));
-});
 
 app.get("/", (req, res) => {
     res.send("<h1>hello worldd</h1>");
