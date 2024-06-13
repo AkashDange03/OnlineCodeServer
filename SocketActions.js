@@ -4,5 +4,6 @@ export const ACTIONS = {
     DISCONNECTED: 'disconnected',
     CODE_CHANGE: "code-change",
     SYNC_CODE : 'sync-code',
+    OUTPUT_CODE:"output-code",
     LEAVE: 'leave'
 }

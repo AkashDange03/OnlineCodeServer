@@ -2,14 +2,16 @@ import express from "express"
 import { createServer } from "node:http";
 import { Server } from "socket.io";
 import { ACTIONS } from "./SocketActions.js";
+import dotenv from "dotenv"
 
-
+dotenv.config();
 const app = express();
 const server = createServer(app);
 const io = new Server(server,{ cors: {
     origin: "*",  // You can restrict this to your frontend domain
     methods: ["GET", "POST"]
 }});
+
 
 app.get("/", (req, res) => {
     res.send("<h1>hello worldd</h1>");
@@ -64,6 +66,13 @@ io.on("connection", (socket) => {
     socket.on(ACTIONS.SYNC_CODE, ({ socketId, code }) => {
         io.to(socketId).emit(ACTIONS.CODE_CHANGE, { code });
     });
+
+    //listening to output_code change
+    socket.on(ACTIONS.OUTPUT_CODE, ({ roomId, output }) => {
+        //sending output data to all clients
+        io.to(roomId).emit(ACTIONS.OUTPUT_CODE, { output });
+    });
+
 
 
     socket.on("disconnecting", () => {
