@@ -73,6 +73,11 @@ io.on("connection", (socket) => {
         io.to(roomId).emit(ACTIONS.OUTPUT_CODE, { output });
     });
 
+    socket.on('chat-message',({roomId,message,username})=>{
+        // console.log(username+" : "+ message)
+        io.to(roomId).emit('chat-message',{message,username});
+    })
+
 
 
     socket.on("disconnecting", () => {
